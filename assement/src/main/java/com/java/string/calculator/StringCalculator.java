@@ -1,37 +1,38 @@
 package com.java.string.calculator;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.java.string.calculator.exception.NegativeNumberException;
 
 public class StringCalculator {
 
-	public int convertStringToInt(String str)//method parses and returns the value of the current string
+	public List<Integer> negatives = new ArrayList<Integer>();
+
+	public boolean isNegatives = false;
+
+	public int convertStringToInteger(String str)//method parses and returns the value of the current string
 	{
 		int currValue = 0;
 		if(!str.isEmpty() && str.contains("\n"))//this snippet will handle the new line characters if any in the current string
 		{
 			String[] lines = str.split("\n");
-			return calculateValue(lines);
+			return calculateTotalValue(lines);
 		}
 
 		if(!str.isEmpty())
 		{
 			currValue = Integer.parseInt(str);
-			if(currValue < 0)//if the current number is negative, throw custom excpetion
+			if(currValue < 0)//if the current number is negative, add them to the list, which will be handled later
 			{
-				try
-				{
-					throw new NegativeNumberException("negatives not allowed:" + currValue);
-				} 
-				catch (NegativeNumberException e) 
-				{
-					e.printStackTrace();
-				}
+				isNegatives = true;
+				negatives.add(currValue);
 			}
 		}
 		return currValue;//returns 0 for an empty string
 	}
 
-	public int add(String numbers)
+	public int processString(String numbers)
 	{
 		int sum = 0;
 		if(numbers.isEmpty())
@@ -48,7 +49,28 @@ public class StringCalculator {
 		}
 		else//this is for single number scenario
 		{
-			return convertStringToInt(numbers);
+			sum =  convertStringToInteger(numbers);
+		}
+
+		return sum;
+	}
+	public int add(String numbers)
+	{
+		int sum = 0;
+		sum = processString(numbers);
+
+		if(isNegatives)
+		{
+			try
+			{
+				throw new NegativeNumberException("negatives not allowed:" + negatives.toString());
+			} 
+			catch (NegativeNumberException e) 
+			{
+				e.printStackTrace();
+				isNegatives = false;// resetting th values once the exception is thrown
+				negatives.clear();
+			}
 		}
 
 		return sum;
@@ -57,15 +79,15 @@ public class StringCalculator {
 	public int calculateValue(String numbers, String delimiter) //utility method for various purposes
 	{
 		String[] strs = numbers.split(delimiter);
-		return calculateValue(strs);
+		return calculateTotalValue(strs);
 	}
 
-	public int calculateValue(String[] numbers) //utility method for various purposes
+	public int calculateTotalValue(String[] numbers) //utility method for various purposes
 	{
 		int curr = 0;
 		for(String s:numbers) 
 		{
-			curr += convertStringToInt(s);
+			curr += convertStringToInteger(s);
 		}
 		return curr;
 	}
@@ -87,7 +109,7 @@ public class StringCalculator {
 				}
 				else//this means there's only one number in the current line of the string
 				{
-					total = total + Integer.parseInt(currLine);
+					total = total + convertStringToInteger(currLine);
 				}
 			}
 		}

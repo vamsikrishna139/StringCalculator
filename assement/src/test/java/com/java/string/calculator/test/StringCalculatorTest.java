@@ -130,14 +130,35 @@ public class StringCalculatorTest
 	public void testNegativeNumberTest()
 	{
 		int result = calculator.add("//;\n1;2;4;-5\n6;7;8;0\n9");
-		Assert.assertEquals(21, result);
+		Assert.assertEquals(32, result);
 	}
 
 	@Test
 	public void testNegativeNumberTest1()
 	{
 		int result = calculator.add("//;\n1;2;4;\n5\n6;7;8;0\n9;-10");
-		Assert.assertEquals(21, result);
+		Assert.assertEquals(32, result);
+	}
+
+	@Test
+	public void testMultipleNegativeNumbersTest()
+	{
+		int result = calculator.add("//;\n1;2;4;\n5\n6;-7;8;0\n9;-10");
+		Assert.assertEquals(18, result);
+	}
+
+	@Test
+	public void testMultipleNegativeNumbersTest1()
+	{
+		int result = calculator.add("-1\n2,-3\n4");
+		Assert.assertEquals(2, result);
+	}
+	
+	@Test
+	public void testMultipleNegativeNumbersTest2()
+	{
+		int result = calculator.add("//;\n1;2;-4;5\n6;-7;8;0\n-9");
+		Assert.assertEquals(2, result);
 	}
 
 }
