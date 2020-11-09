@@ -126,4 +126,18 @@ public class StringCalculatorTest
 		Assert.assertEquals(21, result);
 	}
 
+	@Test
+	public void testNegativeNumberTest()
+	{
+		int result = calculator.add("//;\n1;2;4;-5\n6;7;8;0\n9");
+		Assert.assertEquals(21, result);
+	}
+
+	@Test
+	public void testNegativeNumberTest1()
+	{
+		int result = calculator.add("//;\n1;2;4;\n5\n6;7;8;0\n9;-10");
+		Assert.assertEquals(21, result);
+	}
+
 }

@@ -1,15 +1,34 @@
 package com.java.string.calculator;
 
+import com.java.string.calculator.exception.NegativeNumberException;
+
 public class StringCalculator {
 
-	public int returnValue(String str)//method parses and returns the value of the current string
+	public int convertStringToInt(String str)//method parses and returns the value of the current string
 	{
+		int currValue = 0;
 		if(!str.isEmpty() && str.contains("\n"))//this snippet will handle the new line characters if any in the current string
 		{
 			String[] lines = str.split("\n");
 			return calculateValue(lines);
 		}
-		return str.isEmpty()?0:Integer.parseInt(str);
+
+		if(!str.isEmpty())
+		{
+			currValue = Integer.parseInt(str);
+			if(currValue < 0)//if the current number is negative, throw custom excpetion
+			{
+				try
+				{
+					throw new NegativeNumberException("negatives not allowed:" + currValue);
+				} 
+				catch (NegativeNumberException e) 
+				{
+					e.printStackTrace();
+				}
+			}
+		}
+		return currValue;//returns 0 for an empty string
 	}
 
 	public int add(String numbers)
@@ -29,7 +48,7 @@ public class StringCalculator {
 		}
 		else//this is for single number scenario
 		{
-			return returnValue(numbers);
+			return convertStringToInt(numbers);
 		}
 
 		return sum;
@@ -46,7 +65,7 @@ public class StringCalculator {
 		int curr = 0;
 		for(String s:numbers) 
 		{
-			curr += returnValue(s);
+			curr += convertStringToInt(s);
 		}
 		return curr;
 	}
