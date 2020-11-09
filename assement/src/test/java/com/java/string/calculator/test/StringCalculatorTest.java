@@ -90,12 +90,40 @@ public class StringCalculatorTest
 		int result = calculator.add("10\n,3\n5,");
 		Assert.assertEquals(18, result);
 	}
-	
+
 	@Test
 	public void testCommaSeperatedWithNewLineTest4()
 	{
 		int result = calculator.add("10\n3\n5");
 		Assert.assertEquals(18, result);
+	}
+
+	@Test
+	public void testVariableDelimiterTest1()
+	{
+		int result = calculator.add("//:\n1:2:4:5");
+		Assert.assertEquals(12, result);
+	}
+
+	@Test
+	public void testVariableDelimiterTest2()
+	{
+		int result = calculator.add("//:\n1:2:4:5\n6:7:");
+		Assert.assertEquals(25, result);
+	}
+
+	@Test
+	public void testVariableDelimiterTest3()
+	{
+		int result = calculator.add("//:\n1:2::5\n6:7:");
+		Assert.assertEquals(21, result);
+	}
+
+	@Test
+	public void testVariableDelimiterTest4()
+	{
+		int result = calculator.add("//;\n1;2;;5\n6;7;");
+		Assert.assertEquals(21, result);
 	}
 
 }
