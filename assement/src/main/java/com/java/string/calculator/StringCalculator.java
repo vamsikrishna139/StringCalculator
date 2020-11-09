@@ -6,25 +6,29 @@ package com.java.string.calculator;
  */
 public class StringCalculator 
 {
+	public int returnValue(String str)//method parses and returns the value of the current string
+	{
+		return str.isEmpty()?0:Integer.parseInt(str);
+	}
+
 	public int add(String numbers)
 	{
 		int sum = 0;
 		if(numbers.isEmpty())
 		{
-			return 0;
+			return sum;
 		}
-		else if(numbers.indexOf(',') != -1)
+		else if(numbers.indexOf(',') != -1)//this is for more than one number scenario
 		{
 			String[] strs = numbers.split(",");
-			for(String s:strs)
+			for(String s:strs) 
 			{
-				sum = sum + Integer.parseInt(s);
+				sum += returnValue(s);
 			}
 		}
-		else
+		else//this is for single number scenario
 		{
-			sum = Integer.parseInt(numbers);
-			return sum;
+			return returnValue(numbers);
 		}
 
 		return sum;
