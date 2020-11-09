@@ -63,4 +63,39 @@ public class StringCalculatorTest
 		Assert.assertEquals(3, result);
 	}
 
+	@Test
+	public void testCommaSeperatedWithNewLineTest()
+	{
+		int result = calculator.add("1\n2,3");
+		Assert.assertEquals(6, result);
+	}
+
+	@Test
+	public void testCommaSeperatedWithNewLineTest1()
+	{
+		int result = calculator.add("1\n2,3\n4,5,6\n7,9");
+		Assert.assertEquals(37, result);
+	}
+
+	@Test
+	public void testCommaSeperatedWithNewLineTest2()
+	{
+		int result = calculator.add("10\n,3\n5,6");
+		Assert.assertEquals(24, result);
+	}
+
+	@Test
+	public void testCommaSeperatedWithNewLineTest3()
+	{
+		int result = calculator.add("10\n,3\n5,");
+		Assert.assertEquals(18, result);
+	}
+	
+	@Test
+	public void testCommaSeperatedWithNewLineTest4()
+	{
+		int result = calculator.add("10\n3\n5");
+		Assert.assertEquals(18, result);
+	}
+
 }

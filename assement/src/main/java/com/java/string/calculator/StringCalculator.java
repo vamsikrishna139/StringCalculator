@@ -8,6 +8,16 @@ public class StringCalculator
 {
 	public int returnValue(String str)//method parses and returns the value of the current string
 	{
+		if(!str.isEmpty() && str.contains("\n"))//this snippet will handle the new line characters if any in the current string
+		{
+			int curr = 0;
+			String[] lines = str.split("\n");
+			for(String s:lines) 
+			{
+				curr += returnValue(s);
+			}
+			return curr;
+		}
 		return str.isEmpty()?0:Integer.parseInt(str);
 	}
 
