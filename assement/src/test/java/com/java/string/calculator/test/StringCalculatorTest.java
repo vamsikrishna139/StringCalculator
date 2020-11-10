@@ -4,7 +4,9 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
+
 import com.java.string.calculator.StringCalculator;
+
 import junit.framework.Assert;
 
 public class StringCalculatorTest
@@ -170,11 +172,18 @@ public class StringCalculatorTest
 		Assert.assertEquals(2, result);
 	}
 
+	@Test
+	public void testIgnoreNumberGreaterThan1000()
+	{
+		int result = calculator.add("1,1000,3");
+		Assert.assertEquals(4, result);
+	}
+
 	@AfterClass
 	public static void testCountInvocations()
 	{
 		int result = currCount;
-		Assert.assertEquals(21, result);
+		Assert.assertEquals(22, result);
 	}
 
 }

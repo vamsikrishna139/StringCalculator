@@ -33,6 +33,10 @@ public class StringCalculator {
 				isNegatives = true;
 				negatives.add(currValue);
 			}
+			if(currValue >= 1000)
+			{
+				currValue = 0;
+			}
 		}
 		return currValue;//returns 0 for an empty string
 	}
