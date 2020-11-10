@@ -207,11 +207,39 @@ public class StringCalculatorTest
 		Assert.assertEquals(15, result);
 	}
 
+	@Test
+	public void testVariableDelimitersLengthTest()
+	{
+		int result = calculator.add("//[*][%]\n1*2%3*5");
+		Assert.assertEquals(11, result);
+	}
+
+	@Test
+	public void testVariableDelimitersLengthTest1()
+	{
+		int result = calculator.add("//[*][%]\n1*2**3%%4%*5*%7%8%%%%****%9");
+		Assert.assertEquals(39, result);
+	}
+
+	@Test
+	public void testVariableDelimitersLengthTest2()
+	{
+		int result = calculator.add("//[*][%]\n1*2**3%%4%*5*%7%8%%%%****%9\n-10*%*%10*1000");
+		Assert.assertEquals(39, result);
+	}
+	
+	@Test
+	public void testVariableDelimitersLengthTest3()
+	{
+		int result = calculator.add("//[*][%]\n1*2**3%%4%*5*%7%8%9\n-10*%*%10*\n1000*%*3");
+		Assert.assertEquals(42, result);
+	}
+
 	@AfterClass
 	public static void testCountInvocations()
 	{
 		int result = currCount;
-		Assert.assertEquals(26, result);
+		Assert.assertEquals(30, result);
 	}
 
 }

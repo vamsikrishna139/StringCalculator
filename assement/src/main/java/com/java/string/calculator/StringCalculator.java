@@ -70,22 +70,25 @@ public class StringCalculator {
 	private int processVariableDelimiterLengthString(String numbers) {
 
 		int firstIndex = numbers.indexOf("[");
-		int lastIndex = numbers.indexOf("[");
+		int lastIndex = numbers.lastIndexOf("[");
 		String delimiter = numbers.substring(firstIndex+1,firstIndex+2);
-		String[] splitLines = numbers.split("\n");// this splits the delimiter part and the numbers part of it case 10
+		String[] splitLines = numbers.split("\n");// this splits the delimiter part and the numbers part of it
 
+		String finalDelimiter = "";
 		int result = 0;
-		if(lastIndex == firstIndex)//this means that only one delimiter case 11,12
-		{
-			for(int i=1;i<splitLines.length;i++)//we have started from one, as th 0th element will have the delimiter
-			{
-				String[] nums = splitLines[i].split("\\"+delimiter);
-				result += calculateTotalValue(nums);
-			}
-		}
-		else//this means two delimiters
-		{
 
+		//By default handling single delimiter case
+		finalDelimiter += delimiter;
+		if(lastIndex != firstIndex)//this means two delimiters case 11,12
+		{
+			String delimiter1 = numbers.substring(lastIndex+1,lastIndex+2);
+			finalDelimiter += delimiter+delimiter1;
+		}
+
+		for(int i=1;i<splitLines.length;i++)//we have started from one, as th 0th element will have the delimiter
+		{
+			String[] nums = splitLines[i].split("["+finalDelimiter+"]");
+			result += calculateTotalValue(nums);
 		}
 
 		return result;
