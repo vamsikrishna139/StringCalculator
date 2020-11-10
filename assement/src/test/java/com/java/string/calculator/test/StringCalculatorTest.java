@@ -185,26 +185,33 @@ public class StringCalculatorTest
 		int result = calculator.add("//[*]\n1*2**3***4****5");
 		Assert.assertEquals(15, result);
 	}
-	
+
 	@Test
 	public void testVariableDelimiterLengthTest1()
 	{
 		int result = calculator.add("//[*]\n1*2**3***4****-5");
 		Assert.assertEquals(5, result);
 	}
-	
+
 	@Test
 	public void testVariableDelimiterLengthTest2()
 	{
 		int result = calculator.add("//[*]\n1*2**3***4****-5**1000*");
 		Assert.assertEquals(5, result);
 	}
-	
+
+	@Test
+	public void testVariableDelimiterLengthTest3()
+	{
+		int result = calculator.add("//[*]\n1*2**3***4****-5**1000*\n2*3***5");
+		Assert.assertEquals(15, result);
+	}
+
 	@AfterClass
 	public static void testCountInvocations()
 	{
 		int result = currCount;
-		Assert.assertEquals(25, result);
+		Assert.assertEquals(26, result);
 	}
 
 }

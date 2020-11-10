@@ -71,14 +71,17 @@ public class StringCalculator {
 
 		int firstIndex = numbers.indexOf("[");
 		int lastIndex = numbers.indexOf("[");
+		String delimiter = numbers.substring(firstIndex+1,firstIndex+2);
+		String[] splitLines = numbers.split("\n");// this splits the delimiter part and the numbers part of it case 10
 
 		int result = 0;
-		if(lastIndex == firstIndex)//this means that only one delimiter
+		if(lastIndex == firstIndex)//this means that only one delimiter case 11,12
 		{
-			String delimiter = numbers.substring(firstIndex+1,firstIndex+2);
-			String[] splitLines = numbers.split("\n");// this splits the delimiter part and the numbers part of it
-			String[] nums = splitLines[1].split("\\"+delimiter);
-			result = calculateTotalValue(nums);
+			for(int i=1;i<splitLines.length;i++)//we have started from one, as th 0th element will have the delimiter
+			{
+				String[] nums = splitLines[i].split("\\"+delimiter);
+				result += calculateTotalValue(nums);
+			}
 		}
 		else//this means two delimiters
 		{
