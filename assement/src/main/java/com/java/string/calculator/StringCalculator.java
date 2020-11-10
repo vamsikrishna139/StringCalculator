@@ -48,6 +48,10 @@ public class StringCalculator {
 		{
 			return sum;
 		}
+		else if(numbers.indexOf("[") != -1)//this is for cases 10,11,12
+		{
+			sum += processVariableDelimiterLengthString(numbers);
+		}
 		else if(numbers.indexOf("//") == 0)//this scenario handles the variable delimiter scenario
 		{
 			sum += variableDelimiter(numbers);
@@ -63,6 +67,27 @@ public class StringCalculator {
 
 		return sum;
 	}
+	private int processVariableDelimiterLengthString(String numbers) {
+
+		int firstIndex = numbers.indexOf("[");
+		int lastIndex = numbers.indexOf("[");
+
+		int result = 0;
+		if(lastIndex == firstIndex)//this means that only one delimiter
+		{
+			String delimiter = numbers.substring(firstIndex+1,firstIndex+2);
+			String[] splitLines = numbers.split("\n");// this splits the delimiter part and the numbers part of it
+			String[] nums = splitLines[1].split("\\"+delimiter);
+			result = calculateTotalValue(nums);
+		}
+		else//this means two delimiters
+		{
+
+		}
+
+		return result;
+	}
+
 	public int add(String numbers)
 	{
 		int sum = 0;
