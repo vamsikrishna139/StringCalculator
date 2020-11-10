@@ -1,5 +1,7 @@
 package com.java.string.calculator.test;
 
+import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 import com.java.string.calculator.StringCalculator;
@@ -7,12 +9,19 @@ import junit.framework.Assert;
 
 public class StringCalculatorTest
 {
-	private StringCalculator calculator;
+	public static int currCount = 0;
+	public StringCalculator calculator;
 
 	@Before
 	public void getInstance()
 	{
 		calculator = new StringCalculator();
+	}
+
+	@After
+	public void incremetCounter()
+	{
+		currCount = currCount + calculator.getCalledCount();
 	}
 
 	@Test
@@ -153,12 +162,19 @@ public class StringCalculatorTest
 		int result = calculator.add("-1\n2,-3\n4");
 		Assert.assertEquals(2, result);
 	}
-	
+
 	@Test
 	public void testMultipleNegativeNumbersTest2()
 	{
 		int result = calculator.add("//;\n1;2;-4;5\n6;-7;8;0\n-9");
 		Assert.assertEquals(2, result);
+	}
+
+	@AfterClass
+	public static void testCountInvocations()
+	{
+		int result = currCount;
+		Assert.assertEquals(21, result);
 	}
 
 }

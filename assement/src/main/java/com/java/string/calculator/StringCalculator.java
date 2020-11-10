@@ -11,6 +11,11 @@ public class StringCalculator {
 
 	public boolean isNegatives = false;
 
+	public int getCalledCount()
+	{
+		return 1;
+	}
+
 	public int convertStringToInteger(String str)//method parses and returns the value of the current string
 	{
 		int currValue = 0;
